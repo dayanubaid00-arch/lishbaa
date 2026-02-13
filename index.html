@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Alishba ❤️</title>
+<title>For Alishba</title>
 
 <style>
 body {
@@ -14,6 +14,7 @@ body {
     align-items: center;
     height: 100vh;
     overflow: hidden;
+    flex-direction: column;
 }
 
 /* Floating <3 hearts */
@@ -22,7 +23,7 @@ body {
     color: #ff4d6d;
     font-size: 18px;
     animation: float 6s linear infinite;
-    opacity: 0.6;
+    opacity: 0.5;
 }
 
 @keyframes float {
@@ -35,30 +36,42 @@ body {
     width: 240px;
     height: 160px;
     background: white;
-    position: relative;
     border-radius: 10px;
-    cursor: pointer;
-    animation: glow 2s infinite alternate;
+    box-shadow: 0 0 35px rgba(255,105,180,0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+}
+
+/* Subtle seal */
+.seal {
+    width: 40px;
+    height: 40px;
+    background: #ff9ecb;
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(255,105,180,0.7);
+}
+
+/* Open Button */
+.open-btn {
+    margin-top: 20px;
+    background: #ff9ecb;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 25px;
+    font-size: 15px;
+    color: white;
+    animation: glow 2s infinite alternate, bounce 2s infinite;
 }
 
 @keyframes glow {
-    from { box-shadow: 0 0 20px rgba(255,105,180,0.4); }
-    to { box-shadow: 0 0 35px rgba(255,105,180,0.8); }
+    from { box-shadow: 0 0 10px rgba(255,105,180,0.4); }
+    to { box-shadow: 0 0 25px rgba(255,105,180,0.9); }
 }
 
-.seal {
-    font-size: 40px;
-    color: red;
-}
-
-.tap-text {
-    font-size: 14px;
-    margin-top: 8px;
-    color: #ff4d6d;
+@keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
 }
 
 /* Card */
@@ -68,7 +81,7 @@ body {
     background: white;
     padding: 20px;
     border-radius: 15px;
-    box-shadow: 0 0 35px rgba(255,105,180,0.7);
+    box-shadow: 0 0 35px rgba(255,105,180,0.6);
     text-align: center;
     opacity: 0;
     transform: translateY(40px);
@@ -80,14 +93,22 @@ body {
     transform: translateY(0);
 }
 
-button {
+.name-glow {
+    animation: nameGlow 2s infinite alternate;
+}
+
+@keyframes nameGlow {
+    from { text-shadow: 0 0 5px rgba(255,105,180,0.3); }
+    to { text-shadow: 0 0 15px rgba(255,105,180,0.8); }
+}
+
+.final-btn {
     background: #ff4d6d;
     border: none;
     padding: 10px 20px;
     color: white;
     border-radius: 20px;
     margin-top: 15px;
-    font-size: 14px;
 }
 
 /* Confetti */
@@ -107,15 +128,18 @@ button {
 
 <body>
 
-<div class="envelope" onclick="openCard()" id="envelope">
-    <div class="seal">❤️</div>
-    <div class="tap-text">Tap to open 💌</div>
+<div id="envelopeSection">
+    <div class="envelope">
+        <div class="seal"></div>
+    </div>
+
+    <button class="open-btn" onclick="openCard()">Open</button>
 </div>
 
 <div class="card" id="card">
-    <h2>Hi Alishba ❤️</h2>
+    <h2 class="name-glow">Hi Alishba</h2>
     <p id="message"></p>
-    <button onclick="finalPopup()">Click Me</button>
+    <button class="final-btn" onclick="finalPopup()">Click Me</button>
 </div>
 
 <script>
@@ -127,7 +151,7 @@ You’re my peace, my happiness, and my favorite person.
 
 No matter what, I’m always here for you.
 
-– From Dayan ❤️
+– From Dayan
 `;
 
 let index = 0;
@@ -141,10 +165,8 @@ function typeWriter() {
 }
 
 function openCard() {
-    const envelope = document.getElementById("envelope");
+    document.getElementById("envelopeSection").style.display = "none";
     const card = document.getElementById("card");
-
-    envelope.style.display = "none";
     card.classList.add("show");
 
     if (navigator.vibrate) {
@@ -155,12 +177,12 @@ function openCard() {
     createConfetti();
 
     setTimeout(() => {
-        alert("I hope you smiled ❤️");
+        alert("I hope you smiled");
     }, 1500);
 }
 
 function finalPopup() {
-    alert("automatic together expired forever ❤️");
+    alert("automatic together expired forever");
 }
 
 /* Floating <3 hearts */
