@@ -31,47 +31,64 @@ body {
     100% { transform: translateY(-10vh); }
 }
 
-/* Envelope */
-.envelope {
-    width: 240px;
-    height: 160px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 0 35px rgba(255,105,180,0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* Envelope container */
+.envelope-wrapper {
+    position: relative;
+    width: 260px;
+    height: 170px;
 }
 
-/* Subtle seal */
+/* Envelope body */
+.envelope {
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 0 35px rgba(255,105,180,0.6);
+}
+
+/* Envelope flap */
+.envelope:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: #f2f2f2;
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+}
+
+/* Red wax seal */
 .seal {
-    width: 40px;
-    height: 40px;
-    background: #ff9ecb;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 45px;
+    height: 45px;
+    background: #c4002f;
     border-radius: 50%;
-    box-shadow: 0 0 15px rgba(255,105,180,0.7);
+    box-shadow: 0 0 15px rgba(196,0,47,0.7);
 }
 
 /* Open Button */
 .open-btn {
-    margin-top: 20px;
+    margin-top: 25px;
     background: #ff9ecb;
     border: none;
-    padding: 12px 28px;
+    padding: 12px 30px;
     border-radius: 25px;
     font-size: 15px;
     color: white;
-    animation: glow 2s infinite alternate, bounce 2s infinite;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255,105,180,0.7);
+    transition: transform 0.2s ease;
 }
 
-@keyframes glow {
-    from { box-shadow: 0 0 10px rgba(255,105,180,0.4); }
-    to { box-shadow: 0 0 25px rgba(255,105,180,0.9); }
-}
-
-@keyframes bounce {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+.open-btn:active {
+    transform: scale(0.95);
 }
 
 /* Card */
@@ -93,15 +110,6 @@ body {
     transform: translateY(0);
 }
 
-.name-glow {
-    animation: nameGlow 2s infinite alternate;
-}
-
-@keyframes nameGlow {
-    from { text-shadow: 0 0 5px rgba(255,105,180,0.3); }
-    to { text-shadow: 0 0 15px rgba(255,105,180,0.8); }
-}
-
 .final-btn {
     background: #ff4d6d;
     border: none;
@@ -109,6 +117,7 @@ body {
     color: white;
     border-radius: 20px;
     margin-top: 15px;
+    cursor: pointer;
 }
 
 /* Confetti */
@@ -129,15 +138,15 @@ body {
 <body>
 
 <div id="envelopeSection">
-    <div class="envelope">
+    <div class="envelope-wrapper">
+        <div class="envelope"></div>
         <div class="seal"></div>
     </div>
-
     <button class="open-btn" onclick="openCard()">Open</button>
 </div>
 
 <div class="card" id="card">
-    <h2 class="name-glow">Hi Alishba</h2>
+    <h2>Hi Alishba</h2>
     <p id="message"></p>
     <button class="final-btn" onclick="finalPopup()">Click Me</button>
 </div>
@@ -178,7 +187,7 @@ function openCard() {
 
     setTimeout(() => {
         alert("I hope you smiled");
-    }, 1500);
+    }, 1200);
 }
 
 function finalPopup() {
