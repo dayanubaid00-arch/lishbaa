@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Alishba</title>
@@ -10,11 +10,12 @@ body {
     background: #ffd6e7;
     font-family: Arial, sans-serif;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
     overflow: hidden;
-    flex-direction: column;
+    position: relative;
 }
 
 /* Floating <3 hearts */
@@ -24,6 +25,7 @@ body {
     font-size: 18px;
     animation: float 6s linear infinite;
     opacity: 0.5;
+    pointer-events: none;
 }
 
 @keyframes float {
@@ -46,10 +48,11 @@ body {
     border-radius: 8px;
     position: relative;
     box-shadow: 0 0 35px rgba(255,105,180,0.6);
+    z-index: 1;
 }
 
 /* Envelope flap */
-.envelope:before {
+.envelope::before {
     content: "";
     position: absolute;
     top: 0;
@@ -71,11 +74,22 @@ body {
     background: #c4002f;
     border-radius: 50%;
     box-shadow: 0 0 15px rgba(196,0,47,0.7);
+    z-index: 2;
+}
+
+/* Envelope Section */
+#envelopeSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Open Button */
 .open-btn {
-    margin-top: 25px;
+    z-index: 10;
+    position: relative;
+    margin-top: 20px;
     background: #ff9ecb;
     border: none;
     padding: 12px 30px;
@@ -103,6 +117,7 @@ body {
     opacity: 0;
     transform: translateY(40px);
     transition: all 0.8s ease;
+    z-index: 10;
 }
 
 .card.show {
@@ -134,7 +149,6 @@ body {
 }
 </style>
 </head>
-
 <body>
 
 <div id="envelopeSection">
@@ -178,9 +192,7 @@ function openCard() {
     const card = document.getElementById("card");
     card.classList.add("show");
 
-    if (navigator.vibrate) {
-        navigator.vibrate(120);
-    }
+    if (navigator.vibrate) navigator.vibrate(120);
 
     typeWriter();
     createConfetti();
