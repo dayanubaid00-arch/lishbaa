@@ -2,97 +2,266 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+
+<!-- IMPORTANT FOR MOBILE -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Open Me 💌</title>
+
+<title>For Alishba 💗</title>
 
 <style>
+* {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Poppins", sans-serif;
+}
+
 body {
-    margin: 0;
-    background: linear-gradient(135deg, #ffe6f0, #fff0f5);
-    font-family: 'Segoe UI', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffc1d6, #ffe4ec);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: background 1.5s ease;
 }
 
-/* Envelope */
-.envelope {
-    position: relative;
-    width: 90%;
-    max-width: 350px;
-    height: 220px;
-    background: #ffccd9;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    cursor: pointer;
-    overflow: hidden;
-    transition: transform 0.3s ease;
+/* Glow */
+body.glow {
+  background: radial-gradient(circle at center, #ffd6e8, #ffb6d5);
 }
 
-.envelope:hover {
-    transform: scale(1.03);
+/* Card container */
+.card-container {
+  perspective: 1000px;
+  width: 90vw;
+  max-width: 380px;
 }
 
-.flap {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #ffb3c6;
-    clip-path: polygon(0 0, 50% 60%, 100% 0);
-    transition: transform 0.6s ease;
-    transform-origin: top;
+/* Card */
+.card {
+  width: 100%;
+  height: 500px;
+  max-height: 85vh;
+  transform-style: preserve-3d;
+  transition: transform 1s ease, box-shadow 1.5s ease;
+  position: relative;
 }
 
-.letter {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: white;
-    padding: 20px;
-    box-sizing: border-box;
-    text-align: center;
-    transform: translateY(100%);
-    transition: transform 0.6s ease;
-    font-size: 15px;
-    line-height: 1.5;
-    border-radius: 12px;
+.card.open {
+  transform: rotateY(180deg);
+  box-shadow: 0 0 35px rgba(255, 182, 213, 0.9);
 }
 
-/* Open animation */
-.open .flap {
-    transform: rotateX(180deg);
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+  backface-visibility: hidden;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  padding: 28px 22px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.open .letter {
-    transform: translateY(0);
+/* Front */
+.front {
+  background: white;
+}
+
+.front h1 {
+  color: #ff5c8a;
+  font-size: 22px;
+}
+
+.front h2 {
+  color: #ff85a2;
+  margin-top: 5px;
+  font-size: 18px;
+}
+
+.heart {
+  font-size: 46px;
+  margin: 20px 0;
+  animation: pulse 1.6s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+button {
+  margin-top: 25px;
+  background: #ff85a2;
+  border: none;
+  color: white;
+  padding: 14px 30px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(255,133,162,0.4);
+}
+
+/* Back */
+.back {
+  background: #fff5f9;
+  transform: rotateY(180deg);
+}
+
+.back h2 {
+  color: #ff5c8a;
+  font-size: 20px;
+}
+
+#typedText {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #444;
+  white-space: pre-line;
+  margin-top: 15px;
+}
+
+/* Confetti */
+.confetti {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(700px) rotate(720deg); opacity: 0; }
+}
+
+/* Flowers */
+.flower {
+  position: absolute;
+  font-size: 20px;
+  animation: floatUp 6s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-700px); opacity: 0; }
+}
+
+/* Sparkles */
+.sparkle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: sparkle 4s linear infinite;
+}
+
+@keyframes sparkle {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-600px); opacity: 0; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="envelope" onclick="openEnvelope()">
-    <div class="flap"></div>
-    <div class="letter">
-        <h2>For You 💕</h2>
-        <p>
-            Just a little reminder that you are loved more than you know.
-            Read this whenever you need to feel special 💌
-        </p>
+<div class="card-container">
+  <div class="card" id="card">
+
+    <div class="card-face front">
+      <h1>Happy Valentine’s 💗</h1>
+      <h2>Alishba</h2>
+      <div class="heart">🌸❤️🌸</div>
+      <p>I made this just for you.</p>
+      <button onclick="openCard()">Open 💌</button>
     </div>
+
+    <div class="card-face back">
+      <h2>For You 🌷</h2>
+      <p id="typedText"></p>
+    </div>
+
+  </div>
 </div>
 
 <script>
-function openEnvelope() {
-    const env = document.querySelector('.envelope');
-    env.classList.toggle('open');
+const message =
+`Alishba,
 
-    // Soft vibration (works on most mobile browsers)
-    if (navigator.vibrate) {
-        navigator.vibrate(40);
-    }
+You have the softest presence
+and the kindest heart.
+
+You make even ordinary moments
+feel warm and safe.
+
+I hope this little card
+made you smile.
+
+— Dayan 💕`;
+
+let index = 0;
+
+function openCard() {
+  document.getElementById("card").classList.add("open");
+  confettiBurst();
+  typeText();
 }
+
+function typeText() {
+  if (index < message.length) {
+    document.getElementById("typedText").innerHTML += message.charAt(index);
+    index++;
+    setTimeout(typeText, 35);
+  } else {
+    setTimeout(() => {
+      document.body.classList.add("glow");
+      alert("I hope you smiled 😊🩷");
+    }, 800);
+  }
+}
+
+/* Confetti */
+function confettiBurst() {
+  for (let i = 0; i < 80; i++) {
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.background =
+      ["#ff85a2", "#ffc1d6", "#ffe4ec"][Math.floor(Math.random() * 3)];
+    c.style.animationDuration = (2 + Math.random() * 2) + "s";
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 4000);
+  }
+}
+
+/* Flowers */
+function createFlower() {
+  const f = document.createElement("div");
+  f.className = "flower";
+  f.innerHTML = "🌸";
+  f.style.left = Math.random() * 100 + "vw";
+  f.style.bottom = "-20px";
+  document.body.appendChild(f);
+  setTimeout(() => f.remove(), 6000);
+}
+setInterval(createFlower, 900);
+
+/* Sparkles */
+function createSparkle() {
+  const s = document.createElement("div");
+  s.className = "sparkle";
+  s.style.left = Math.random() * 100 + "vw";
+  s.style.bottom = "-10px";
+  document.body.appendChild(s);
+  setTimeout(() => s.remove(), 4000);
+}
+setInterval(createSparkle, 500);
 </script>
 
 </body>
